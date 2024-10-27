@@ -24,7 +24,10 @@ export default tsEslint.config(
     rules: {
       ...eslintConfigPrettier.rules,
       '@typescript-eslint/no-unused-vars': 1,
+      'prefer-const': 2,
     },
+  },
+  {
     ignores: ['node_modules', 'eslint.config.js', 'dist', 'front'],
   },
 );

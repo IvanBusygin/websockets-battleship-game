@@ -11,10 +11,7 @@ export type IRequest =
 
 export interface IReg {
   type: Commands.REG;
-  data: {
-    name: string;
-    password: string;
-  };
+  data: IUser;
   id: 0;
 }
 
@@ -66,4 +63,9 @@ export interface ISinglePlay {
   type: Commands.SINGLE_PLAY;
   data: '';
   id: 0;
+}
+
+export interface IUser {
+  name: string;
+  password: string;
 }

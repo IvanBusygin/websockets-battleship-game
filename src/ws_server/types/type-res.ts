@@ -25,20 +25,14 @@ export interface IUpdateRoom {
   type: Commands.UPDATE_ROOM;
   data: {
     roomId: number | string;
-    roomUsers: {
-      name: string;
-      index: number | string;
-    }[];
+    roomUsers: IRoomUsers[];
   }[];
   id: 0;
 }
 
 export interface IUpdateWinners {
   type: Commands.UPDATE_WINNERS;
-  data: {
-    name: string;
-    wins: number;
-  }[];
+  data: IWinners[];
   id: 0;
 }
 
@@ -89,4 +83,14 @@ export interface IFinish {
     winPlayer: number | string; // ID of the player who won in the current game session
   };
   id: 0; // Identifier for this specific update
+}
+
+export interface IWinners {
+  name: string;
+  wins: number;
+}
+
+export interface IRoomUsers {
+  name: string;
+  index: number | string;
 }

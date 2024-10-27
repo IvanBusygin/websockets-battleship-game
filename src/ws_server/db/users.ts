@@ -1,3 +1,3 @@
-import { IUser } from '../types/user';
+import { IUserDB } from '../types/user';
 
-export const users: Map<string, IUser> = new Map();
+export const users: IUserDB[] = [];

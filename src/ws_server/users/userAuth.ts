@@ -6,13 +6,13 @@ export const userAuth = (name: string, password: string, socketID: string): IRes
   let errorText = '';
   let isError = false;
 
-  const user = users.get(name);
+  const user = users.find((user) => user.name === name);
   if (!user) {
     if (!/^[a-zA-Z-]+$/.test(name)) {
       isError = true;
       errorText = 'Name must contain only letters';
     } else {
-      users.set(name, {
+      users.push({
         name,
         password: generateHash(password),
         index: socketID,

@@ -18,7 +18,7 @@ export function deepParseJson(jsonString: unknown) {
     }
     try {
       return deepParseJson(JSON.parse(jsonString));
-    } catch (err) {
+    } catch {
       return jsonString;
     }
   }

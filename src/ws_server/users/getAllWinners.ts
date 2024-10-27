@@ -1,11 +1,11 @@
 import { users } from '../db/users';
-import { IWinners } from '../types/user';
+import { IWinners } from '../types/type-res';
 
 export const getAllWinners = (): IWinners[] => {
-  return [...users.values()]
+  return users
     .filter((user) => user.wins > 0)
     .map((user) => ({
-      name: user.name || 'Unknown',
+      name: user.name ?? 'Unknown',
       wins: user.wins,
     }));
 };

@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 import { WebSocketServer } from 'ws';
 import { deepParseJson } from './utils/json';
 import { dbSockets } from './db/ws';
-import { handleREG } from './handlers-request/regHandler';
+import { handleCreateRoom, handleReg } from './handlers-request/handle-request';
 import { IRequest } from './types/type-req';
 import { Commands, CustomWS } from './types/common';
 
@@ -25,13 +25,15 @@ export const webSocketServer = (port: number = 3000) => {
 
         switch (type) {
           case Commands.REG: {
-            handleREG(wsServer, ws, data);
+            handleReg(wsServer, ws, data);
             break;
           }
 
           case Commands.CREATE_ROOM: {
+            handleCreateRoom(wsServer, ws);
             break;
           }
+
           case Commands.ADD_USER_TO_ROOM: {
             break;
           }
