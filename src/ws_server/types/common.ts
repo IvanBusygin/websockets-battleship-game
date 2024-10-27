@@ -1,3 +1,9 @@
+import WebSocket from 'ws';
+
+export interface CustomWS extends WebSocket {
+  id: string;
+}
+
 export enum Commands {
   ADD_SHIPS = 'add_ships',
   ADD_USER_TO_ROOM = 'add_user_to_room',

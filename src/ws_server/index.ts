@@ -1,14 +1,22 @@
-import WebSocket, { WebSocketServer } from 'ws';
+import { randomUUID } from 'crypto';
+import { WebSocketServer } from 'ws';
 import { deepParseJson } from './utils/json';
+import { dbSockets } from './db/ws';
+import { handleREG } from './handlers-request/regHandler';
 import { IRequest } from './types/type-req';
-import { Commands } from './types/common';
+import { Commands, CustomWS } from './types/common';
 
 export const webSocketServer = (port: number = 3000) => {
-  const webSocketServer = new WebSocketServer({
+  const wsServer = new WebSocketServer({
     port,
   });
 
-  webSocketServer.on('connection', (ws: WebSocket) => {
+  wsServer.on('connection', (ws: CustomWS) => {
+    const currentSocketID = randomUUID();
+    ws.id = currentSocketID;
+    dbSockets.set(currentSocketID, ws);
+    console.log(`New WS client ${currentSocketID}`);
+
     ws.on('message', (rawData) => {
       try {
         const { type, data } = deepParseJson(rawData.toString()) as IRequest;
@@ -17,8 +25,10 @@ export const webSocketServer = (port: number = 3000) => {
 
         switch (type) {
           case Commands.REG: {
+            handleREG(wsServer, ws, data);
             break;
           }
+
           case Commands.CREATE_ROOM: {
             break;
           }
@@ -44,9 +54,11 @@ export const webSocketServer = (port: number = 3000) => {
     });
 
     ws.on('close', () => {
-      console.log('Goodbye!');
+      dbSockets.delete(currentSocketID);
+      console.log(`Disconnect client ${currentSocketID}. Goodbye!`);
+      console.log(`Numbers of clients: ${dbSockets.size} at this moment`);
     });
   });
 
-  return webSocketServer;
+  return wsServer;
 };
