@@ -1,4 +1,4 @@
-import { Commands, IPosition, TypeShip } from './common';
+import { Commands, IPosition, IShip } from './common';
 
 export type IResponses =
   | IRes
@@ -48,12 +48,7 @@ export interface ICreateGame {
 export interface IStartGame {
   type: Commands.START_GAME; // Indicates the action to start the game
   data: {
-    ships: {
-      position: IPosition;
-      direction: boolean; // Direction of the ship (true for one direction, false for the opposite)
-      length: number; // Length of the ship
-      type: TypeShip;
-    }[];
+    ships: IShip[];
     currentPlayerIndex: string; // ID of the player who sent their ships
   };
   id: 0; // Identifier for this specific update

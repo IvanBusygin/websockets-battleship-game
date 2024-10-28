@@ -17,3 +17,21 @@ export const removeGame = (idGame: string) => {
     games.splice(gameIndex, 1);
   }
 };
+
+export const getTurnIndex = (indexPlayer: string, gameId: string): string => {
+  const game = games.find((game) => game.idGame === gameId);
+
+  if (!game) {
+    console.log(`Game not found: ${gameId}`);
+    return '';
+  }
+
+  const currentPlayerIndex = game.roomUsers.findIndex((user) => user.index === indexPlayer);
+  const nextPlayerIndex = (currentPlayerIndex + 1) % game.roomUsers.length;
+
+  game.roomUsers.forEach((user) => {
+    user.turnIndex = game.roomUsers[nextPlayerIndex].index;
+  });
+
+  return game.roomUsers[nextPlayerIndex].index;
+};

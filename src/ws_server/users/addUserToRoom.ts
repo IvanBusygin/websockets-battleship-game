@@ -1,9 +1,9 @@
-import { getCurrentUser } from '../db/users';
+import { getUser } from '../db/users';
 import { getRoom, rooms } from '../db/rooms';
 import { consoleColors } from '../utils/const';
 
 export const addUserToRoom = (roomId: string, socketID: string) => {
-  const currentUser = getCurrentUser(socketID);
+  const currentUser = getUser(socketID);
   const roomToAdd = getRoom(roomId);
 
   if (!currentUser || !roomToAdd) {

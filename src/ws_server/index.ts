@@ -2,7 +2,12 @@ import { randomUUID } from 'crypto';
 import { WebSocketServer } from 'ws';
 import { deepParseJson } from './utils/json';
 import { consoleColors } from './utils/const';
-import { handleAddUserToRoom, handleCreateRoom, handleReg } from './handlers/handle-request';
+import {
+  handleAddShips,
+  handleAddUserToRoom,
+  handleCreateRoom,
+  handleReg,
+} from './handlers/handle-request';
 import { IRequest } from './types/type-req';
 import { Commands, CustomWS } from './types/common';
 import { dbSockets } from './db/ws';
@@ -42,8 +47,10 @@ export const webSocketServer = (port: number = 3000) => {
           }
 
           case Commands.ADD_SHIPS: {
+            handleAddShips(ws, data);
             break;
           }
+
           case Commands.ATTACK: {
             break;
           }
