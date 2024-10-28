@@ -24,7 +24,7 @@ export interface ICreateRoom {
 export interface IAddUserToRoom {
   type: Commands.ADD_USER_TO_ROOM;
   data: {
-    indexRoom: number;
+    indexRoom: string;
   };
   id: 0;
 }
@@ -32,9 +32,9 @@ export interface IAddUserToRoom {
 export interface IAddShips {
   type: Commands.ADD_SHIPS;
   data: {
-    gameId: number;
+    gameId: string;
     ships: IShip[];
-    indexPlayer: number;
+    indexPlayer: string;
   };
   id: 0;
 }
@@ -45,7 +45,7 @@ export interface IAttack {
     gameId: number;
     x: number;
     y: number;
-    indexPlayer: number;
+    indexPlayer: string;
   };
   id: 0;
 }
@@ -54,7 +54,7 @@ export interface IRandomAttack {
   type: Commands.RANDOM_ATTACK;
   data: {
     gameId: number;
-    indexPlayer: number;
+    indexPlayer: string;
   };
   id: 0;
 }

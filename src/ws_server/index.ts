@@ -1,10 +1,11 @@
 import { randomUUID } from 'crypto';
 import { WebSocketServer } from 'ws';
 import { deepParseJson } from './utils/json';
-import { dbSockets } from './db/ws';
-import { handleCreateRoom, handleReg } from './handlers-request/handle-request';
+import { consoleColors } from './utils/const';
+import { handleAddUserToRoom, handleCreateRoom, handleReg } from './handlers/handle-request';
 import { IRequest } from './types/type-req';
 import { Commands, CustomWS } from './types/common';
+import { dbSockets } from './db/ws';
 
 export const webSocketServer = (port: number = 3000) => {
   const wsServer = new WebSocketServer({
@@ -15,7 +16,8 @@ export const webSocketServer = (port: number = 3000) => {
     const currentSocketID = randomUUID();
     ws.id = currentSocketID;
     dbSockets.set(currentSocketID, ws);
-    console.log(`New WS client ${currentSocketID}`);
+
+    console.log(consoleColors.blue, `New WS client ${currentSocketID}`);
 
     ws.on('message', (rawData) => {
       try {
@@ -35,8 +37,10 @@ export const webSocketServer = (port: number = 3000) => {
           }
 
           case Commands.ADD_USER_TO_ROOM: {
+            handleAddUserToRoom(wsServer, ws, data);
             break;
           }
+
           case Commands.ADD_SHIPS: {
             break;
           }

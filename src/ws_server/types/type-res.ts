@@ -14,7 +14,7 @@ export interface IRes {
   type: Commands.REG;
   data: {
     name: string;
-    index: number | string;
+    index: string;
     error: boolean;
     errorText: string;
   };
@@ -24,7 +24,7 @@ export interface IRes {
 export interface IUpdateRoom {
   type: Commands.UPDATE_ROOM;
   data: {
-    roomId: number | string;
+    roomId: string;
     roomUsers: IRoomUsers[];
   }[];
   id: 0;
@@ -39,8 +39,8 @@ export interface IUpdateWinners {
 export interface ICreateGame {
   type: Commands.CREATE_GAME; // Sent for both players in the room after they are connected
   data: {
-    idGame: number | string; // Unique identifier for the game
-    idPlayer: number | string; // Unique identifier for the player in the game session
+    idGame: string; // Unique identifier for the game
+    idPlayer: string; // Unique identifier for the player in the game session
   };
   id: 0; // Identifier for the update
 }
@@ -54,7 +54,7 @@ export interface IStartGame {
       length: number; // Length of the ship
       type: TypeShip;
     }[];
-    currentPlayerIndex: number | string; // ID of the player who sent their ships
+    currentPlayerIndex: string; // ID of the player who sent their ships
   };
   id: 0; // Identifier for this specific update
 }
@@ -62,7 +62,7 @@ export interface IStartGame {
 export interface ITurn {
   type: Commands.TURN; // Indicates the action for the player's turn
   data: {
-    currentPlayer: number | string; // ID of the player in the current game session
+    currentPlayer: string; // ID of the player in the current game session
   };
   id: 0; // Identifier for this specific update
 }
@@ -71,7 +71,7 @@ export interface IAttack {
   type: Commands.ATTACK; // Indicates the action for an attack
   data: {
     position: IPosition;
-    currentPlayer: number | string; // ID of the player in the current game session
+    currentPlayer: string; // ID of the player in the current game session
     status: 'miss' | 'killed' | 'shot'; // Status of the attack
   };
   id: 0; // Identifier for this specific update
@@ -80,7 +80,7 @@ export interface IAttack {
 export interface IFinish {
   type: Commands.FINISH; // Indicates the action to finish the game
   data: {
-    winPlayer: number | string; // ID of the player who won in the current game session
+    winPlayer: string; // ID of the player who won in the current game session
   };
   id: 0; // Identifier for this specific update
 }
@@ -92,5 +92,5 @@ export interface IWinners {
 
 export interface IRoomUsers {
   name: string;
-  index: number | string;
+  index: string;
 }

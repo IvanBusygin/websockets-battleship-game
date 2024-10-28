@@ -1,4 +1,4 @@
-import WebSocket from 'ws';
+import { WebSocket } from 'ws';
 
 export interface CustomWS extends WebSocket {
   id: string;
@@ -32,6 +32,4 @@ export interface IShip {
   direction: boolean;
   length: number;
   type: TypeShip;
-  shipCells?: { x: number; y: number; status: 1 | 3 | 4 }[];
-  isKilled?: boolean;
 }
